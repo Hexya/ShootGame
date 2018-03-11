@@ -29,6 +29,7 @@ var Case = function(pWidth,pNum,pColumn) {
     if(Math.random() > 0.9) {
       this.bomba = new Bomba(this.caseView);
       Config.bombe.push(this.bomba);
+      // console.log(Config.bombe);
     }
 
   }

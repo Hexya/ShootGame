@@ -6,6 +6,7 @@ var Character = function() {
   this.xR;
   this.y;
   this.yB;
+  this.comet;
   this.construct = function() {
 
     var width = this.width = Math.ceil((document.getElementById(Config.domParent).offsetWidth-10)/10);
@@ -50,26 +51,43 @@ var Character = function() {
       }
 
       //Touched
-      var comet = $('.bomba').offset();
-      var top = comet.top;
-      var bot = comet.top + height;
-      var left = comet.left;
-      var right = comet.left + width;
-      console.log(top + ' / ' + bot + ' / ' + left + ' / '+ right);
+      for (var i = 0; i < Config.bombe.length; i++) {
+        var comet = $('#bomb'+i).offset();
+        // console.log(comet);
 
-      var lDist = Math.abs(this.x - left );
-      var rDist = Math.abs(this.xR - right );
-      var tDist = Math.abs(this.y - top);
-      var bDist = Math.abs(this.yB - bot);
+        //bomba coordinante
+        var top = comet.top;
+        var bot = comet.top + height;
+        var left = comet.left;
+        var right = comet.left + width;
+        // console.log('bomb: '+left + ' / ' + right + ' / ' + top + ' / '+ bot);
 
-        if( lDist < 2 && tDist < 10) {
-          alert('touched gauche');
-        }
+        var lDist = Math.abs(this.x - left );
+        var rDist = Math.abs(this.xR - right );
+        var tDist = Math.abs(this.y - top);
+        var bDist = Math.abs(this.yB - bot);
+
+        //point droite plane - gauche comet 0 si en contact
+        var checkX = Math.abs(this.xR - left);
+
+        //position hauteur
+        var posCometY = top + (height/2);
+        var posPlaneY = this.y + (height/2);
+        //point midle comet - midle plane 0 si en contact
+        var chekY = Math.abs(posCometY - posPlaneY);
+        console.log(chekY);
+
+
+          if( checkX < 20 && chekY < (height/2)) {
+            document.getElementById('container').innerHTML ='<p class="looser">YOU LOOSE</p>';
+          }
+
+      }
 
       //Warning sorti de map
       var wCont = document.getElementById(Config.domParent).offsetWidth;
       var hCont = document.getElementById(Config.domParent).offsetHeight;
-      console.log('Coordinate :'+ this.y + 'x ' + this.x + 'y');
+      console.log('Coordinate :'+ this.x + 'x ' + this.y + 'y');
 
       if (this.x <= 0 || this.y <= 0 || this.x >= wCont || this.y >= hCont) {
           console.log('danger');

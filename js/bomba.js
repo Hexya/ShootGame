@@ -6,7 +6,7 @@ var Bomba = function(pColumn) {
     //creation de la bombe
     this.bomba = document.createElement('div');
     this.bomba.setAttribute('class','bomba');
-    this.bomba.setAttribute('id','bomba'+ Math.random());
+    this.bomba.setAttribute('id','bomb'+ Config.bombe.length);
     this.column.appendChild(this.bomba);
 
   }
